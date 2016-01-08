@@ -5,7 +5,9 @@
 3. change the variable name of ZSH_THEME in file ~/.zshrc to ZSH_THEME="jee"
 4. reload console
 
-screen shoot :
+######screen shoot :
+
+
 ![alt text](https://github.com/wzije/jee-zsh-theme/blob/master/shoot_jee.zsh-theme.png "screen picture jee.zsh-theme")
 
 feel free ..:D
