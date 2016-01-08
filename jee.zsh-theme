@@ -30,7 +30,7 @@ fi;
 #%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} %B%% '
 
 PROMPT='%{$fg[cyan]%}%c%{$reset_color%} %{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} %% '
-#RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
+RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 
 ##
 # Key bindings
