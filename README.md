@@ -6,6 +6,6 @@
 4. reload console
 
 screen shoot :
-![alt text](https://github.com/wzije/jee-zsh-theme/shoot_jee.zsh-theme.png "screen picture jee.zsh-theme")
+![alt text](https://github.com/wzije/jee-zsh-theme/blob/master/shoot_jee.zsh-theme.png "screen picture jee.zsh-theme")
 
 feel free ..:D
