@@ -25,11 +25,35 @@ if [ "$USER" = "root" ]; then
     color="red"         # root is red, user is blue
 fi;
 
-#PROMPT='
-#%{$fg[cyan]%}[%~% ] ${vim_mode} ${vcs_info_msg_0_}
-#%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} %B%% '
+## 
+# get ip address from eth0 or wifi
+##
+ips () {
+    # determine local IP address
+    #ifconfig | grep "inet " | awk '{ print $2 }'
+    #ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
 
-PROMPT='%{$fg[cyan]%}%c%{$reset_color%} %{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} %% '
+    ip=`eval ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print $2 }'`
+   
+    if [ -z "$ip" ]; then
+    	ifconfig en4 | grep 'inet ' | sed -e 's/:/ /' | awk '{print $2"@eth"}'
+   	else
+   		ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print $2"@wifi"}' 
+    fi;
+}
+
+##
+# get external / public ip address
+##
+exip () {
+    # gather external ip address
+    echo -n "Current External IP: "
+    curl -s -m 5 http://myip.dk | grep "ha4" | sed -e 's/.*ha4">//g' -e 's/<\/span>.*//g'
+}
+
+
+PROMPT='%{$fg[cyan]%}%c%{$reset_color%} %{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} ($(ips))
++ '
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 
 ##
@@ -115,24 +139,24 @@ setopt bang_hist                # !keyword
 
 ##
 # Various
+#setopt auto_cd                  # if command is a path, cd into it
 ##
-setopt auto_cd                  # if command is a path, cd into it
-setopt auto_remove_slash        # self explicit
-setopt chase_links              # resolve symlinks
-setopt correct                  # try to correct spelling of commands
-setopt extended_glob            # activate complex pattern globbing
-setopt glob_dots                # include dotfiles in globbing
-setopt print_exit_value         # print return value if non-zero
-unsetopt beep                   # no bell on error
-unsetopt bg_nice                # no lower prio for background jobs
-unsetopt clobber                # must use >| to truncate existing files
-unsetopt hist_beep              # no bell on error in history
-unsetopt hup                    # no hup signal at shell exit
-unsetopt ignore_eof             # do not exit on end-of-file
-unsetopt list_beep              # no bell on ambiguous completion
-unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
-setxkbmap -option compose:ralt  # compose-key
-print -Pn "\e]0; %n@%M: %~\a"   # terminal title
+#setopt auto_remove_slash        # self explicit
+#setopt chase_links              # resolve symlinks
+#setopt correct                  # try to correct spelling of commands
+#setopt extended_glob            # activate complex pattern globbing
+#setopt glob_dots                # include dotfiles in globbing
+#setopt print_exit_value         # print return value if non-zero
+#unsetopt beep                   # no bell on error
+#unsetopt bg_nice                # no lower prio for background jobs
+#unsetopt clobber                # must use >| to truncate existing files
+#unsetopt hist_beep              # no bell on error in history
+#unsetopt hup                    # no hup signal at shell exit
+#unsetopt ignore_eof             # do not exit on end-of-file
+#unsetopt list_beep              # no bell on ambiguous completion
+#unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
+#setxkbmap -option compose:ralt  # compose-key
+#print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 
 source ~/.alias                 # aliases
 
